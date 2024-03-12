@@ -13,6 +13,10 @@
 		63D02ACA2BA085E50081BCC2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63D02AC82BA085E50081BCC2 /* Main.storyboard */; };
 		63D02ACC2BA085EA0081BCC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D02ACB2BA085EA0081BCC2 /* Assets.xcassets */; };
 		63D02ACF2BA085EA0081BCC2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63D02ACD2BA085EA0081BCC2 /* LaunchScreen.storyboard */; };
+		63D02AD72BA086890081BCC2 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D02AD62BA086890081BCC2 /* Networking.swift */; };
+		63D02AD92BA0BE5E0081BCC2 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D02AD82BA0BE5E0081BCC2 /* ResponseModel.swift */; };
+		63D02ADE2BA0BFB90081BCC2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D02ADC2BA0BFB90081BCC2 /* MainViewController.swift */; };
+		63D02ADF2BA0BFB90081BCC2 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D02ADD2BA0BFB90081BCC2 /* MainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		63D02ACB2BA085EA0081BCC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63D02ACE2BA085EA0081BCC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63D02AD02BA085EA0081BCC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63D02AD62BA086890081BCC2 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		63D02AD82BA0BE5E0081BCC2 /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
+		63D02ADC2BA0BFB90081BCC2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		63D02ADD2BA0BFB90081BCC2 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,35 @@
 		63D02AC12BA085E50081BCC2 /* CODETest */ = {
 			isa = PBXGroup;
 			children = (
+				63D02ADB2BA0BEE00081BCC2 /* Application */,
+				63D02ADA2BA0BEC10081BCC2 /* Network */,
+				63D02AC62BA085E50081BCC2 /* ViewController.swift */,
+				63D02ADC2BA0BFB90081BCC2 /* MainViewController.swift */,
+				63D02ADD2BA0BFB90081BCC2 /* MainViewController.xib */,
+			);
+			path = CODETest;
+			sourceTree = "<group>";
+		};
+		63D02ADA2BA0BEC10081BCC2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				63D02AD62BA086890081BCC2 /* Networking.swift */,
+				63D02AD82BA0BE5E0081BCC2 /* ResponseModel.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		63D02ADB2BA0BEE00081BCC2 /* Application */ = {
+			isa = PBXGroup;
+			children = (
 				63D02AC22BA085E50081BCC2 /* AppDelegate.swift */,
 				63D02AC42BA085E50081BCC2 /* SceneDelegate.swift */,
-				63D02AC62BA085E50081BCC2 /* ViewController.swift */,
 				63D02AC82BA085E50081BCC2 /* Main.storyboard */,
 				63D02ACB2BA085EA0081BCC2 /* Assets.xcassets */,
 				63D02ACD2BA085EA0081BCC2 /* LaunchScreen.storyboard */,
 				63D02AD02BA085EA0081BCC2 /* Info.plist */,
 			);
-			path = CODETest;
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +156,7 @@
 				63D02ACF2BA085EA0081BCC2 /* LaunchScreen.storyboard in Resources */,
 				63D02ACC2BA085EA0081BCC2 /* Assets.xcassets in Resources */,
 				63D02ACA2BA085E50081BCC2 /* Main.storyboard in Resources */,
+				63D02ADF2BA0BFB90081BCC2 /* MainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +170,9 @@
 				63D02AC72BA085E50081BCC2 /* ViewController.swift in Sources */,
 				63D02AC32BA085E50081BCC2 /* AppDelegate.swift in Sources */,
 				63D02AC52BA085E50081BCC2 /* SceneDelegate.swift in Sources */,
+				63D02ADE2BA0BFB90081BCC2 /* MainViewController.swift in Sources */,
+				63D02AD92BA0BE5E0081BCC2 /* ResponseModel.swift in Sources */,
+				63D02AD72BA086890081BCC2 /* Networking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +321,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JVW2R72ZC3;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CODETest/Info.plist;
+				INFOPLIST_FILE = CODETest/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -317,7 +349,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JVW2R72ZC3;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CODETest/Info.plist;
+				INFOPLIST_FILE = CODETest/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
