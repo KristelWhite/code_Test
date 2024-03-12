@@ -9,7 +9,11 @@ import Foundation
 
 class Networking {
     
-    func loadData(isSuccess: Bool, onResponseWasResived: @escaping (_ result: Result<ResponseBody, Error>) -> Void ){
+    var urlCache : URLCache {
+        URLCache.shared
+    }
+    
+    func loadData(isSuccess: Bool, onResponseWasReseived: @escaping (_ result: Result<ResponseBody, Error>) -> Void ){
         
         let preferHeader: String
         
@@ -28,31 +32,46 @@ class Networking {
         request.allHTTPHeaderFields = headers
         
         let session = URLSession.shared
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            if let error = error {
-                onResponseWasResived(.failure(error))
-            } else
-            if let httpResponse = response as? HTTPURLResponse {
-                guard httpResponse.statusCode == 200 else {
-                    onResponseWasResived(.failure(NetworkError.badResponse))
-                    return
+        
+        do {
+            let request = request as URLRequest
+            
+            if let cachedResponse = getCachedResponce(forRequest: request) {
+                let decodedData = try ResponseBody.decode(from: cachedResponse.data)
+                onResponseWasReseived(.success(decodedData))
+                return
+            }
+            
+            let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) -> Void in
+                if let error = error {
+                    onResponseWasReseived(.failure(error))
+                } else
+                if let httpResponse = response as? HTTPURLResponse {
+                    guard httpResponse.statusCode == 200 else {
+                        onResponseWasReseived(.failure(NetworkError.badResponse))
+                        return
+                    }
+                }
+                if let data = data {
+                    do {
+                        //                    let result = try JSONDecoder().decode(ResponseBody.self, from: data)
+                        let result = try ResponseBody.decode(from: data)
+                        //                  сохраняем запрос в кеш
+                        self.saveCachedResponse(response: response, data: data, forRequest: request)
+                        onResponseWasReseived(.success(result))
+                    } catch {
+                        onResponseWasReseived(.failure(NetworkError.wrongDataType))
+                    }
+                } else {
+                    onResponseWasReseived(.failure(NetworkError.unknownError))
                 }
             }
-            if let data = data {
-                do {
-//                    let result = try JSONDecoder().decode(ResponseBody.self, from: data)
-                    let result = try ResponseBody.decode(from: data)
-                    onResponseWasResived(.success(result))
-                } catch {
-                    onResponseWasResived(.failure(NetworkError.wrongDataType))
-                }
-            } else {
-                onResponseWasResived(.failure(NetworkError.unknownError))
-            }
-        })
-        
-        dataTask.resume()
-        
+            
+            dataTask.resume()
+        }
+        catch {
+            onResponseWasReseived(.failure(error))
+        }
     }
 }
 
@@ -62,6 +81,21 @@ private extension Networking {
         case badResponse
         case wrongDataType
         case unknownError
+    }
+}
+
+//MARK: - Cached logic
+
+private extension Networking {
+    
+    func saveCachedResponse (response: URLResponse?, data: Data?, forRequest request: URLRequest) {
+        guard let response = response, let data = data else { return }
+        let cachedData = CachedURLResponse(response: response, data: data)
+        urlCache.storeCachedResponse(cachedData, for: request)
+    }
+    
+    func getCachedResponce (forRequest request: URLRequest) -> CachedURLResponse? {
+        return urlCache.cachedResponse(for: request)
     }
 }
 

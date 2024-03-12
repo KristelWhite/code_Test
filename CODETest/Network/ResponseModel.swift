@@ -36,7 +36,7 @@ struct Worker: Codable {
     let userTag: String
     let department: Department
     let position: String
-    let birthday: Date 
+    let birthday: Date
     let phone: String
 }
 
@@ -49,9 +49,9 @@ struct ResponseBody: Codable {
 extension ResponseBody {
     static func decode(from jsonData: Data) throws -> ResponseBody {
         let decoder = JSONDecoder()
-         let dateFormatter = DateFormatter()
-         dateFormatter.dateFormat = "yyyy-MM-dd"
-         decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
         return try decoder.decode(ResponseBody.self, from: jsonData)
     }
