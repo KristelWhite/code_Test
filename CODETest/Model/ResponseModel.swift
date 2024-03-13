@@ -36,13 +36,13 @@ struct Employee: Codable {
     let userTag: String
     let department: Department
     let position: String
-    let birthday: Date
+    let birthday: String
     let phone: String
 }
 
 
 struct ResponseBody: Codable {
-    let list: [Employee]
+    let items: [Employee]
 }
 
 

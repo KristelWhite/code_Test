@@ -18,7 +18,7 @@ class EmployeesListModel {
         service.loadData(isSuccess: true) { [weak self] result in
             switch result {
             case .success(let success):
-                self?.employees = success.list
+                self?.employees = success.items
             case .failure(let failure):
                 print(failure.localizedDescription)
             }

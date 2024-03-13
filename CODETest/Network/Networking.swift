@@ -48,15 +48,16 @@ class Networking {
                 } else
                 if let httpResponse = response as? HTTPURLResponse {
                     guard httpResponse.statusCode == 200 else {
+                        print(httpResponse)
                         onResponseWasReseived(.failure(NetworkError.badResponse))
                         return
                     }
                 }
                 if let data = data {
                     do {
-                        //                    let result = try JSONDecoder().decode(ResponseBody.self, from: data)
+                        //                        let result = try JSONDecoder().decode(ResponseBody.self, from: data)
                         let result = try ResponseBody.decode(from: data)
-                        //                  сохраняем запрос в кеш
+                        //   сохраняем запрос в кеш
                         self.saveCachedResponse(response: response, data: data, forRequest: request)
                         onResponseWasReseived(.success(result))
                     } catch {

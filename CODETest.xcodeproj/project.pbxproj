@@ -21,6 +21,9 @@
 		63D02AE82BA192C00081BCC2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D02AE62BA192C00081BCC2 /* DetailViewController.swift */; };
 		63D02AE92BA192C00081BCC2 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D02AE72BA192C00081BCC2 /* DetailViewController.xib */; };
 		63D02AEB2BA1CC540081BCC2 /* EmployeesListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D02AEA2BA1CC540081BCC2 /* EmployeesListModel.swift */; };
+		63D02AED2BA1D90F0081BCC2 /* NavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D02AEC2BA1D90F0081BCC2 /* NavigationBarController.swift */; };
+		63D02AF12BA1DE020081BCC2 /* EmployeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D02AEF2BA1DE020081BCC2 /* EmployeeTableViewCell.swift */; };
+		63D02AF22BA1DE020081BCC2 /* EmployeeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D02AF02BA1DE020081BCC2 /* EmployeeTableViewCell.xib */; };
 		976E5A8E2514D236281B8388 /* Pods_CODETest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B8B19B77ED36895AC6CBFB /* Pods_CODETest.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +46,9 @@
 		63D02AE62BA192C00081BCC2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		63D02AE72BA192C00081BCC2 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		63D02AEA2BA1CC540081BCC2 /* EmployeesListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListModel.swift; sourceTree = "<group>"; };
+		63D02AEC2BA1D90F0081BCC2 /* NavigationBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarController.swift; sourceTree = "<group>"; };
+		63D02AEF2BA1DE020081BCC2 /* EmployeeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeTableViewCell.swift; sourceTree = "<group>"; };
+		63D02AF02BA1DE020081BCC2 /* EmployeeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmployeeTableViewCell.xib; sourceTree = "<group>"; };
 		CEB944F00395885340DA19F5 /* Pods-CODETest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODETest.release.xcconfig"; path = "Target Support Files/Pods-CODETest/Pods-CODETest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,8 +121,10 @@
 			children = (
 				63D02ADC2BA0BFB90081BCC2 /* MainViewController.swift */,
 				63D02ADD2BA0BFB90081BCC2 /* MainViewController.xib */,
-				63D02AE62BA192C00081BCC2 /* DetailViewController.swift */,
-				63D02AE72BA192C00081BCC2 /* DetailViewController.xib */,
+				63D02AEC2BA1D90F0081BCC2 /* NavigationBarController.swift */,
+				63D02AEE2BA1D9290081BCC2 /* DetailVC */,
+				63D02AEF2BA1DE020081BCC2 /* EmployeeTableViewCell.swift */,
+				63D02AF02BA1DE020081BCC2 /* EmployeeTableViewCell.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -128,6 +136,15 @@
 				63D02AEA2BA1CC540081BCC2 /* EmployeesListModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		63D02AEE2BA1D9290081BCC2 /* DetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				63D02AE62BA192C00081BCC2 /* DetailViewController.swift */,
+				63D02AE72BA192C00081BCC2 /* DetailViewController.xib */,
+			);
+			path = DetailVC;
 			sourceTree = "<group>";
 		};
 		84B2C86BC5F04C77A8954060 /* Frameworks */ = {
@@ -210,6 +227,7 @@
 				63D02ACF2BA085EA0081BCC2 /* LaunchScreen.storyboard in Resources */,
 				63D02ACC2BA085EA0081BCC2 /* Assets.xcassets in Resources */,
 				63D02AE92BA192C00081BCC2 /* DetailViewController.xib in Resources */,
+				63D02AF22BA1DE020081BCC2 /* EmployeeTableViewCell.xib in Resources */,
 				63D02ACA2BA085E50081BCC2 /* Main.storyboard in Resources */,
 				63D02ADF2BA0BFB90081BCC2 /* MainViewController.xib in Resources */,
 			);
@@ -265,10 +283,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				63D02AE12BA0C27E0081BCC2 /* ImageLoader.swift in Sources */,
+				63D02AED2BA1D90F0081BCC2 /* NavigationBarController.swift in Sources */,
 				63D02AE32BA0C2FA0081BCC2 /* UIImageView+ImageLoader.swift in Sources */,
 				63D02AC32BA085E50081BCC2 /* AppDelegate.swift in Sources */,
 				63D02AC52BA085E50081BCC2 /* SceneDelegate.swift in Sources */,
 				63D02ADE2BA0BFB90081BCC2 /* MainViewController.swift in Sources */,
+				63D02AF12BA1DE020081BCC2 /* EmployeeTableViewCell.swift in Sources */,
 				63D02AEB2BA1CC540081BCC2 /* EmployeesListModel.swift in Sources */,
 				63D02AD92BA0BE5E0081BCC2 /* ResponseModel.swift in Sources */,
 				63D02AD72BA086890081BCC2 /* Networking.swift in Sources */,

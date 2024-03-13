@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="CODETest" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="hVf-Zq-eNR" id="zAu-Hy-W7S"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,9 +18,24 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hVf-Zq-eNR">
+                    <rect key="frame" x="0.0" y="118" width="393" height="700"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="700" id="1uK-VQ-aQ1"/>
+                    </constraints>
+                </tableView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <point key="canvasLocation" x="102" y="20"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hVf-Zq-eNR" secondAttribute="trailing" id="Hj3-1a-kVJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="hVf-Zq-eNR" secondAttribute="bottom" id="MQ0-7y-Tb4"/>
+                <constraint firstItem="hVf-Zq-eNR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Ysj-79-ry6"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="hVf-Zq-eNR" secondAttribute="bottom" id="pHK-AJ-uqi"/>
+            </constraints>
+            <point key="canvasLocation" x="101.5267175572519" y="19.718309859154932"/>
         </view>
     </objects>
     <resources>
