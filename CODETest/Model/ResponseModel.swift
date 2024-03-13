@@ -28,7 +28,7 @@ enum Department: String, Codable {
     }
 }
 
-struct Worker: Codable {
+struct Employee: Codable {
     let id: String
     let avatarUrl: String
     let firstName: String
@@ -42,7 +42,7 @@ struct Worker: Codable {
 
 
 struct ResponseBody: Codable {
-    let items: [Worker]
+    let list: [Employee]
 }
 
 
