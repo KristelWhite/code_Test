@@ -8,6 +8,14 @@
 import UIKit
 
 class MainViewController: UIViewController {
+
+    enum Constant {
+        static let horizontalSpace: CGFloat = 16
+        static let topSpace: CGFloat = 156
+        static let bottomSpace: CGFloat = 34
+        static let betweenLines: CGFloat = 4
+        static let sizeOfCell: CGFloat = 80
+    }
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -15,6 +23,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupConstraints(for: tableView)
         configureAppearance()
         configureModel()
         model.fetchData()
@@ -30,6 +39,11 @@ class MainViewController: UIViewController {
         tableView.register(UINib(nibName: "\(EmployeeTableViewCell.self)", bundle: nil), forCellReuseIdentifier: "\(EmployeeTableViewCell.self)")
         tableView.dataSource = self
         tableView.delegate = self
+    }
+    
+    func setupConstraints( for tableView: UITableView) {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topSpace), tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -Constant.bottomSpace), tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constant.horizontalSpace), tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constant.horizontalSpace)])
     }
 }
 
@@ -50,7 +64,10 @@ extension MainViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let height = Constant.sizeOfCell + Constant.betweenLines
+        return height
+    }
 }
 
 
