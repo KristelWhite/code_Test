@@ -42,6 +42,11 @@ class EmployeeTableViewCell: UITableViewCell {
         bdayLabel.textColor = Constants.bdayColor
         bdayLabel.textAlignment = .right
         
+        avatarImageView.image = UIImage(named: "goose")
+        avatarImageView.contentMode = .scaleAspectFill
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width / 2
+        avatarImageView.clipsToBounds = true
+        
     }
     
 

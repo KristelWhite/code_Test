@@ -70,7 +70,6 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="84" id="0ib-IK-vCQ"/>
                             <constraint firstItem="gSk-Gv-WII" firstAttribute="leading" secondItem="xD9-AW-L5e" secondAttribute="trailing" constant="16" id="Bhs-em-S8J"/>
                             <constraint firstItem="z5a-CR-w8T" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gSk-Gv-WII" secondAttribute="trailing" constant="10" id="E8x-Zz-LDg"/>
                             <constraint firstItem="gSk-Gv-WII" firstAttribute="centerY" secondItem="BHq-D5-KHW" secondAttribute="centerY" id="MGN-aw-W0H"/>
@@ -78,7 +77,6 @@
                             <constraint firstItem="xD9-AW-L5e" firstAttribute="leading" secondItem="BHq-D5-KHW" secondAttribute="leading" id="eSK-ng-8Vs"/>
                             <constraint firstItem="xD9-AW-L5e" firstAttribute="centerY" secondItem="BHq-D5-KHW" secondAttribute="centerY" id="fNN-ne-ltw"/>
                             <constraint firstAttribute="trailing" secondItem="z5a-CR-w8T" secondAttribute="trailing" constant="4" id="lTE-cM-dO5"/>
-                            <constraint firstAttribute="width" constant="343" id="r7g-6B-Pgl"/>
                         </constraints>
                     </view>
                 </subviews>

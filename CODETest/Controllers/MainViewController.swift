@@ -15,6 +15,8 @@ class MainViewController: UIViewController {
         static let bottomSpace: CGFloat = 34
         static let betweenLines: CGFloat = 4
         static let sizeOfCell: CGFloat = 80
+//        static let horisontalInset: CGFloat = 16
+//        static let verticalInset: CGFloat = 0
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -39,11 +41,13 @@ class MainViewController: UIViewController {
         tableView.register(UINib(nibName: "\(EmployeeTableViewCell.self)", bundle: nil), forCellReuseIdentifier: "\(EmployeeTableViewCell.self)")
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
     }
     
     func setupConstraints( for tableView: UITableView) {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topSpace), tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -Constant.bottomSpace), tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constant.horizontalSpace), tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constant.horizontalSpace)])
+        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topSpace), tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -Constant.bottomSpace), tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.horizontalSpace), tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.horizontalSpace)])
+        // не понятно, посмотреть позже
     }
 }
 
