@@ -28,14 +28,15 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="gSk-Gv-WII">
-                                <rect key="frame" x="87.999999999999986" y="20.333333333333332" width="134.66666666666663" height="43.666666666666671"/>
+                                <rect key="frame" x="87.999999999999986" y="22.666666666666671" width="134.66666666666663" height="39"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="uuq-qB-QRs">
-                                        <rect key="frame" x="0.0" y="0.0" width="134.66666666666666" height="20.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="134.66666666666666" height="20"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Анна Иванова" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAL-ky-BTQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="112" height="20.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="112" height="20"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="BGe-R9-5pA"/>
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="iLV-UP-DQN"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -43,25 +44,35 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="an" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEX-VB-Ury">
-                                                <rect key="frame" x="116" y="0.0" width="18.666666666666657" height="20.333333333333332"/>
+                                                <rect key="frame" x="116" y="2" width="18.666666666666657" height="18"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="18" id="cOY-Kk-vA1"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="wEX-VB-Ury" secondAttribute="bottom" id="aWh-1I-avg"/>
+                                        </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Lead  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zP-pp-h1y">
-                                        <rect key="frame" x="0.0" y="23.333333333333336" width="134.66666666666666" height="20.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="22.999999999999996" width="134.66666666666666" height="16.000000000000004"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="5G8-Dy-uyj"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22 июня" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5a-CR-w8T">
-                                <rect key="frame" x="273.66666666666669" y="32" width="65.333333333333314" height="20.333333333333329"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22 июн" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5a-CR-w8T">
+                                <rect key="frame" x="274" y="32" width="65" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="Bbb-sR-yG2"/>
+                                    <constraint firstAttribute="height" constant="20" id="tMA-cr-dnz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>

@@ -36,8 +36,24 @@ struct Employee: Codable {
     let userTag: String
     let department: Department
     let position: String
-    let birthday: String
+    let birthday: Date
     let phone: String
+}
+
+extension Employee {
+    func dataOnScreen() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.dateFormat = "d MMM"
+        var dateString = formatter.string(from: self.birthday)
+        //проверяем чтобы было точное представление даты
+        let parts = dateString.split(separator: " ")
+        if parts.count == 2, let month = parts.last, month.count > 3 {
+            let correctMonth = String(month.prefix(3))
+            dateString = "\(parts.first!) \(correctMonth)"
+        }
+        return dateString
+    }
 }
 
 

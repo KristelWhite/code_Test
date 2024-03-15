@@ -34,6 +34,7 @@ class EmployeeTableViewCell: UITableViewCell {
         
         tagLabel.font = .systemFont(ofSize: 14, weight: .medium)
         tagLabel.textColor = Constants.tagColor
+
         
         positionLabel.font = .systemFont(ofSize: 13, weight: .regular)
         positionLabel.textColor = Constants.positionColor
@@ -52,7 +53,14 @@ class EmployeeTableViewCell: UITableViewCell {
 
     
     func configure(with employee: Employee) {
-        print(employee)
+        nameLabel.text = "\(employee.firstName) \(employee.lastName)"
+        tagLabel.text = employee.userTag.lowercased()
+        positionLabel.text = employee.position
+        bdayLabel.text = employee.dataOnScreen()
+        if let url = URL(string: employee.avatarUrl) {
+            avatarImageView.loadImage(from: url)
+        }
+        
     }
     
 
