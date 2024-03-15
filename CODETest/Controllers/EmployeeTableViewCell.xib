@@ -44,10 +44,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="an" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEX-VB-Ury">
-                                                <rect key="frame" x="116" y="2" width="18.666666666666657" height="18"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="18" id="cOY-Kk-vA1"/>
-                                                </constraints>
+                                                <rect key="frame" x="116" y="0.0" width="18.666666666666657" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
