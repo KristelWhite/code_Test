@@ -13,12 +13,15 @@ class EmployeesListModel {
     
     let service : Networking = .init()
     var employees: [Employee] = []
+    var filteredItems: [Employee] = []
     
     func fetchData() {
         service.loadData(isSuccess: true) { [weak self] result in
             switch result {
             case .success(let success):
                 self?.employees = success.items
+                //исправить
+                self?.filteredItems = self?.employees ?? []
             case .failure(let failure):
                 print(failure.localizedDescription)
             }

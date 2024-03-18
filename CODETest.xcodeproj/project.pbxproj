@@ -24,6 +24,9 @@
 		63D02AED2BA1D90F0081BCC2 /* NavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D02AEC2BA1D90F0081BCC2 /* NavigationBarController.swift */; };
 		63D02AF12BA1DE020081BCC2 /* EmployeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D02AEF2BA1DE020081BCC2 /* EmployeeTableViewCell.swift */; };
 		63D02AF22BA1DE020081BCC2 /* EmployeeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D02AF02BA1DE020081BCC2 /* EmployeeTableViewCell.xib */; };
+		63D2DC412BA4694B006574B7 /* CustomSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2DC402BA4694B006574B7 /* CustomSearchController.swift */; };
+		63D2DC432BA469BA006574B7 /* CustomButtonBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2DC422BA469BA006574B7 /* CustomButtonBar.swift */; };
+		63D2DC452BA82766006574B7 /* UIImage extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2DC442BA82766006574B7 /* UIImage extention.swift */; };
 		976E5A8E2514D236281B8388 /* Pods_CODETest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B8B19B77ED36895AC6CBFB /* Pods_CODETest.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +52,9 @@
 		63D02AEC2BA1D90F0081BCC2 /* NavigationBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarController.swift; sourceTree = "<group>"; };
 		63D02AEF2BA1DE020081BCC2 /* EmployeeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeTableViewCell.swift; sourceTree = "<group>"; };
 		63D02AF02BA1DE020081BCC2 /* EmployeeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmployeeTableViewCell.xib; sourceTree = "<group>"; };
+		63D2DC402BA4694B006574B7 /* CustomSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchController.swift; sourceTree = "<group>"; };
+		63D2DC422BA469BA006574B7 /* CustomButtonBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonBar.swift; sourceTree = "<group>"; };
+		63D2DC442BA82766006574B7 /* UIImage extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage extention.swift"; sourceTree = "<group>"; };
 		CEB944F00395885340DA19F5 /* Pods-CODETest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODETest.release.xcconfig"; path = "Target Support Files/Pods-CODETest/Pods-CODETest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,7 +115,6 @@
 				63D02AC22BA085E50081BCC2 /* AppDelegate.swift */,
 				63D02AC42BA085E50081BCC2 /* SceneDelegate.swift */,
 				63D02AC82BA085E50081BCC2 /* Main.storyboard */,
-				63D02ACB2BA085EA0081BCC2 /* Assets.xcassets */,
 				63D02ACD2BA085EA0081BCC2 /* LaunchScreen.storyboard */,
 				63D02AD02BA085EA0081BCC2 /* Info.plist */,
 			);
@@ -119,12 +124,15 @@
 		63D02AE42BA0CE310081BCC2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				63D2DC3F2BA42C33006574B7 /* EmployeeTableCell */,
+				63D02AEC2BA1D90F0081BCC2 /* NavigationBarController.swift */,
 				63D02ADC2BA0BFB90081BCC2 /* MainViewController.swift */,
 				63D02ADD2BA0BFB90081BCC2 /* MainViewController.xib */,
-				63D02AEC2BA1D90F0081BCC2 /* NavigationBarController.swift */,
 				63D02AEE2BA1D9290081BCC2 /* DetailVC */,
-				63D02AEF2BA1DE020081BCC2 /* EmployeeTableViewCell.swift */,
-				63D02AF02BA1DE020081BCC2 /* EmployeeTableViewCell.xib */,
+				63D2DC402BA4694B006574B7 /* CustomSearchController.swift */,
+				63D2DC422BA469BA006574B7 /* CustomButtonBar.swift */,
+				63D2DC442BA82766006574B7 /* UIImage extention.swift */,
+				63D02ACB2BA085EA0081BCC2 /* Assets.xcassets */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -145,6 +153,15 @@
 				63D02AE72BA192C00081BCC2 /* DetailViewController.xib */,
 			);
 			path = DetailVC;
+			sourceTree = "<group>";
+		};
+		63D2DC3F2BA42C33006574B7 /* EmployeeTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				63D02AEF2BA1DE020081BCC2 /* EmployeeTableViewCell.swift */,
+				63D02AF02BA1DE020081BCC2 /* EmployeeTableViewCell.xib */,
+			);
+			path = EmployeeTableCell;
 			sourceTree = "<group>";
 		};
 		84B2C86BC5F04C77A8954060 /* Frameworks */ = {
@@ -282,8 +299,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63D2DC412BA4694B006574B7 /* CustomSearchController.swift in Sources */,
 				63D02AE12BA0C27E0081BCC2 /* ImageLoader.swift in Sources */,
+				63D2DC432BA469BA006574B7 /* CustomButtonBar.swift in Sources */,
 				63D02AED2BA1D90F0081BCC2 /* NavigationBarController.swift in Sources */,
+				63D2DC452BA82766006574B7 /* UIImage extention.swift in Sources */,
 				63D02AE32BA0C2FA0081BCC2 /* UIImageView+ImageLoader.swift in Sources */,
 				63D02AC32BA085E50081BCC2 /* AppDelegate.swift in Sources */,
 				63D02AC52BA085E50081BCC2 /* SceneDelegate.swift in Sources */,

@@ -42,6 +42,8 @@ class EmployeeTableViewCell: UITableViewCell {
         bdayLabel.font = .systemFont(ofSize: 15, weight: .regular)
         bdayLabel.textColor = Constants.bdayColor
         bdayLabel.textAlignment = .right
+        //скрыли дату рождения
+        bdayLabel.isHidden = true
         
         avatarImageView.image = UIImage(named: "goose")
         avatarImageView.contentMode = .scaleAspectFill
@@ -56,6 +58,7 @@ class EmployeeTableViewCell: UITableViewCell {
         nameLabel.text = "\(employee.firstName) \(employee.lastName)"
         tagLabel.text = employee.userTag.lowercased()
         positionLabel.text = employee.position
+        //показывать дату только в при фильтрации
         bdayLabel.text = employee.dataOnScreen()
         if let url = URL(string: employee.avatarUrl) {
             avatarImageView.loadImage(from: url)
