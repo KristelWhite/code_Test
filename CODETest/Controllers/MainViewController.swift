@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
     }
     
     let model: EmployeesListModel = .init()
+    var sorting : SortOption = .byAlphabet
     
     var customButtonBar: CustomButtonBar!
     var customSearchController: CustomSearchController!
@@ -82,11 +83,49 @@ class MainViewController: UIViewController {
         self.searchController.searchBar.tintColor = UIColor(red: 101/255, green: 52/255, blue: 255/255, alpha: 1)
     }
     
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        let vc = SortViewController(with: sorting, delegate: self)
+
+        if #available(iOS 15.0, *) {
+            vc.modalPresentationStyle = .pageSheet
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.prefersGrabberVisible = true
+                sheet.preferredCornerRadius = 24
+            }
+        } else {
+            vc.modalPresentationStyle = .automatic
+        }
+        self.navigationController?.present(vc, animated: true)
+    }
+    
+    
+    @objc private func dismissSortingVC() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func configureModel() {
-        model.didUpdateModel = {
-            self.tableView.reloadData()
+        model.didUpdateModel = { [weak self] in
+            
+            switch self?.sorting {
+            case .byAlphabet:
+                self?.model.employees = self?.model.employees.sorted { first, second in
+                    (first.firstName + first.lastName) < (second.firstName + second.lastName)
+                } ?? []
+            case .byBirthday:
+                self?.model.employees = self?.model.employees.sorted { first, second in
+                    first.birthday < second.birthday
+                } ?? []
+            case .none:
+                break
+            }
+            self?.model.filteredItems = self?.model.employees ?? []
+            
+            self?.tableView.reloadData()
         }
     }
+    
+    
     private func configureTableView() {
         setupConstraints(for: tableView)
         
@@ -101,6 +140,31 @@ class MainViewController: UIViewController {
         NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topSpace), tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -Constant.bottomSpace), tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.horizontalSpace), tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.horizontalSpace)])
         // может настроить content Insets ?
     }
+}
+
+// MARK: - SortDelegate
+extension MainViewController: SortingDelegate {
+    func didSelectSorting(with option: SortOption) {
+        self.sorting = option
+        model.fetchData()
+        updateFilterButtonCollor()
+    }
+    
+    func updateFilterButtonCollor(){
+        let image = UIImage(named: "filter")
+        var newImage : UIImage?
+        switch sorting {
+        case .byAlphabet :
+            newImage = image?.withTintColor(UIColor(red: 195/255, green: 195/255, blue: 198/255, alpha: 1))
+        case .byBirthday :
+            newImage = image?.withTintColor(UIColor(red: 101/255, green: 52/255, blue: 255/255, alpha: 1))
+        }
+
+        self.searchController.searchBar.setImage(newImage, for: .bookmark, state: .normal)
+        
+    }
+    
+    
 }
 
 // MARK: - UITableViewDataSource

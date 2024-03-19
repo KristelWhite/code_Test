@@ -13,6 +13,7 @@ class EmployeesListModel {
     
     let service : Networking = .init()
     var employees: [Employee] = []
+    var sortedItems : [Employee] = []
     var filteredItems: [Employee] = []
     
     func fetchData() {
@@ -20,8 +21,7 @@ class EmployeesListModel {
             switch result {
             case .success(let success):
                 self?.employees = success.items
-                //исправить
-                self?.filteredItems = self?.employees ?? []
+                self?.didUpdateModel?()
             case .failure(let failure):
                 print(failure.localizedDescription)
             }

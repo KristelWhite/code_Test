@@ -23,13 +23,13 @@ class NavigationBarController: NSObject {
     init(delegate: NavigationBarDelegate) {
         super.init()
         self.delegate = delegate
-        setupSearchController()
     }
     
-    private func setupSearchController() {
+    private func setupSearchController(onView view: UIView) {
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Введите имя, тег, почту..."
+        
+    
+        
     }
     
     func setupButtonBar(onView view: UIView, belowView targetView: UIView) {
@@ -41,7 +41,7 @@ class NavigationBarController: NSObject {
         // Задать Auto Layout или фреймы для buttonBarView здесь
         buttonBarView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            buttonBarView.topAnchor.constraint(equalTo: targetView.bottomAnchor),
+            buttonBarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: targetView.frame.height),
             buttonBarView.leftAnchor.constraint(equalTo: view.leftAnchor),
             buttonBarView.rightAnchor.constraint(equalTo: view.rightAnchor),
             buttonBarView.heightAnchor.constraint(equalToConstant: 44)
