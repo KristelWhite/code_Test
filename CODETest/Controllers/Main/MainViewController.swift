@@ -9,8 +9,6 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    
-    
     @IBOutlet weak var tableView: UITableView!
 
     enum Constant {
@@ -19,8 +17,6 @@ class MainViewController: UIViewController {
         static let bottomSpace: CGFloat = 34
         static let betweenLines: CGFloat = 4
         static let sizeOfCell: CGFloat = 80
-//        static let horisontalInset: CGFloat = 16
-//        static let verticalInset: CGFloat = 0
     }
     
     let model: EmployeesListModel = .init()
@@ -29,7 +25,6 @@ class MainViewController: UIViewController {
     var selectedCategory: Department = .all
     var currentSearch: String? = nil
     
- 
     let searchController = UISearchController(searchResultsController: nil)
     var categoriesView: CategoriesView!
 
@@ -38,9 +33,18 @@ class MainViewController: UIViewController {
 
         setupSearchBar()
         setupCategoriesView()
+        setupRefreshControl()
         
         configureTableView()
         configureModel()
+        model.fetchData()
+        
+    }
+    func setupRefreshControl() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshPeopleList), for: .valueChanged)
+    }
+    @objc func refreshPeopleList() {
         model.fetchData()
     }
     
@@ -104,13 +108,10 @@ class MainViewController: UIViewController {
     }
     
     
-    @objc private func dismissSortingVC() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     func configureModel() {
         model.didUpdateModel = { [weak self] in
             self?.updateDataAndView()
+            self?.tableView.refreshControl?.endRefreshing()
         }
     }
     

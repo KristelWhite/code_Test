@@ -9,94 +9,95 @@ import Foundation
 
 class Networking {
     
-    var urlCache : URLCache {
+    private var urlCache: URLCache {
         URLCache.shared
     }
     
-    func loadData(isSuccess: Bool, onResponseWasReseived: @escaping (_ result: Result<ResponseBody, Error>) -> Void ){
+    func loadData(isSuccess: Bool, onResponseWasReceived: @escaping (Result<ResponseBody, Error>) -> Void) {
         
-        let preferHeader: String
-        
-        if isSuccess {
-            preferHeader = "code=200, example=success"
-        } else {
-            preferHeader = "code=500, example=error-500"
-        }
-        
+        let preferHeader = isSuccess ? "code=200, example=success" : "code=500, example=error-500"
         let headers = ["Accept": "application/json", "Prefer": preferHeader]
         
-        let request = NSMutableURLRequest(url: NSURL(string: "https://stoplight.io/mocks/kode-api/trainee-test/331141861/users")! as URL,
-                                          cachePolicy: .useProtocolCachePolicy,
-                                          timeoutInterval: 10.0)
+        guard let url = URL(string: "https://stoplight.io/mocks/kode-api/trainee-test/331141861/users") else {
+            onResponseWasReceived(.failure(NetworkError.invalidURL))
+            return
+        }
+        
+        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
         
-        let session = URLSession.shared
-        
-        do {
-            let request = request as URLRequest
-            
-            if let cachedResponse = getCachedResponce(forRequest: request) {
+        if let cachedResponse = getCachedResponse(forRequest: request) {
+            do {
                 let decodedData = try ResponseBody.decode(from: cachedResponse.data)
-                onResponseWasReseived(.success(decodedData))
+                onResponseWasReceived(.success(decodedData))
+                return
+            } catch {
+                onResponseWasReceived(.failure(NetworkError.wrongDataType))
+                return
+            }
+        }
+        
+        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    onResponseWasReceived(.failure(error))
+                }
                 return
             }
             
-            let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) -> Void in
-                if let error = error {
-                    onResponseWasReseived(.failure(error))
-                } else
-                if let httpResponse = response as? HTTPURLResponse {
-                    guard httpResponse.statusCode == 200 else {
-                        print(httpResponse)
-                        onResponseWasReseived(.failure(NetworkError.badResponse))
-                        return
-                    }
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                DispatchQueue.main.async {
+                    onResponseWasReceived(.failure(NetworkError.badResponse))
                 }
-                if let data = data {
-                    do {
-                        //                        let result = try JSONDecoder().decode(ResponseBody.self, from: data)
-                        let result = try ResponseBody.decode(from: data)
-                        //   сохраняем запрос в кеш
-                        self.saveCachedResponse(response: response, data: data, forRequest: request)
-                        onResponseWasReseived(.success(result))
-                    } catch {
-                        onResponseWasReseived(.failure(NetworkError.wrongDataType))
-                    }
-                } else {
-                    onResponseWasReseived(.failure(NetworkError.unknownError))
-                }
+                return
             }
             
-            dataTask.resume()
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    onResponseWasReceived(.failure(NetworkError.unknownError))
+                }
+                return
+            }
+            
+            do {
+                let result = try ResponseBody.decode(from: data)
+                self.saveCachedResponse(response: response, data: data, forRequest: request)
+                DispatchQueue.main.async {
+                    onResponseWasReceived(.success(result))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    onResponseWasReceived(.failure(NetworkError.wrongDataType))
+                }
+            }
         }
-        catch {
-            onResponseWasReseived(.failure(error))
-        }
+        
+        dataTask.resume()
     }
 }
 
-private extension Networking {
-    
+// MARK: - Error Handling
+
+extension Networking {
     enum NetworkError: Error {
+        case invalidURL
         case badResponse
         case wrongDataType
         case unknownError
     }
 }
 
-//MARK: - Cached logic
+// MARK: - Cache Management
 
 private extension Networking {
-    
-    func saveCachedResponse (response: URLResponse?, data: Data?, forRequest request: URLRequest) {
+    func saveCachedResponse(response: URLResponse?, data: Data?, forRequest request: URLRequest) {
         guard let response = response, let data = data else { return }
         let cachedData = CachedURLResponse(response: response, data: data)
         urlCache.storeCachedResponse(cachedData, for: request)
     }
     
-    func getCachedResponce (forRequest request: URLRequest) -> CachedURLResponse? {
-        return urlCache.cachedResponse(for: request)
+    func getCachedResponse(forRequest request: URLRequest) -> CachedURLResponse? {
+        urlCache.cachedResponse(for: request)
     }
 }
-

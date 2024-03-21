@@ -17,12 +17,14 @@ class EmployeesListModel {
     
     func fetchData() {
         service.loadData(isSuccess: true) { [weak self] result in
-            switch result {
-            case .success(let success):
-                self?.employees = success.items
-                self?.didUpdateModel?()
-            case .failure(let failure):
-                print(failure.localizedDescription)
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    self?.employees = success.items
+                    self?.didUpdateModel?()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
             }
         }
     }

@@ -42,19 +42,21 @@ class SortAndFilterLogic {
         if currentSortBy != sorting {
             currentSortBy = sorting
             sortedEmployees = sortEmployees(employees: employees, sorting: sorting)
-        }
-        if currentDepartment != department {
+            
             currentDepartment = department
             filteredByDepartmentEmployees = filterByDepartment(employees: sortedEmployees, department: department)
-        } else {
-            filteredByDepartmentEmployees = sortedEmployees
-        }
-        if  currentSearchString != searchString {
+            
             currentSearchString = searchString
             finalFilteredEmployees = filterByName(employees: filteredByDepartmentEmployees, searchString: searchString)
-        }
-        else {
-            finalFilteredEmployees = filteredByDepartmentEmployees
+        } else if currentDepartment != department {
+            currentDepartment = department
+            filteredByDepartmentEmployees = filterByDepartment(employees: sortedEmployees, department: department)
+            
+            currentSearchString = searchString
+            finalFilteredEmployees = filterByName(employees: filteredByDepartmentEmployees, searchString: searchString)
+        } else if  currentSearchString != searchString {
+            currentSearchString = searchString
+            finalFilteredEmployees = filterByName(employees: filteredByDepartmentEmployees, searchString: searchString)
         }
     }
     
