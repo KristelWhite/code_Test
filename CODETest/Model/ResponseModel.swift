@@ -55,6 +55,59 @@ extension Employee {
         }
         return dateString
     }
+    
+    func fullDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        dateFormatter.dateFormat = "d MMMM yyyy"
+        let formattedDate = dateFormatter.string(from: self.birthday)
+        return formattedDate
+    }
+    
+    func calculateAge() -> String {
+        let calendar = Calendar.current
+        let now = Date()
+        let ageComponents = calendar.dateComponents([.year], from: self.birthday, to: now)
+        guard let age = ageComponents.year else { return "Дата рождения не определена" }
+        let word = аgeWord(for: age)
+        return "\(age) \(word)"
+    }
+
+    private func аgeWord(for age: Int) -> String {
+        let lastDigit = age % 10
+        let lastTwoDigits = age % 100
+        
+        if lastTwoDigits >= 11, lastTwoDigits <= 14 {
+            return "лет"
+        }
+        switch lastDigit {
+        case 1:
+            return "год"
+        case 2, 3, 4:
+            return "года"
+        default:
+            return "лет"
+        }
+    }
+    
+    func formatedPhone() -> String {
+        let parts = self.phone.split(separator: "-").map(String.init)
+        guard parts.count == 3 else {
+            return "Неверный формат"
+        }
+        let part1 = parts[0]
+        let part2 = parts[1]
+        let part3 = parts[2]
+        guard part3.count == 4 else {
+            return "Неверный формат"
+        }
+        let end1 = part3.prefix(2)
+        let end2 = part3.suffix(2)
+
+        let formatNumber = "+7 (\(part1)) \(part2) \(end1) \(end2)"
+        return formatNumber
+    }
+    
 }
 
 

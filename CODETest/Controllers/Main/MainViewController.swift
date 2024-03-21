@@ -236,14 +236,28 @@ extension MainViewController: UITableViewDataSource {
         return emptyStateView
     }
 
-
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(EmployeeTableViewCell.self)") as? EmployeeTableViewCell
         guard let cell = cell else { return UITableViewCell()}
         let employee = model.filteredItems[indexPath.row]
         cell.configure(with: employee)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DetailViewController()
+        if let cell = tableView.cellForRow(at: indexPath) as? EmployeeTableViewCell {
+            vc.name = cell.nameLabel.text ?? ""
+            vc.position = cell.positionLabel.text ?? ""
+            vc.tag = cell.tagLabel.text ?? ""
+            vc.image = cell.avatarImageView.image ?? UIImage(named: "goose") ?? UIImage()
+        }
+        let employee = model.filteredItems[indexPath.row]
+        vc.bday = employee.fullDate()
+        vc.age = employee.calculateAge()
+        vc.phone = employee.formatedPhone()
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
