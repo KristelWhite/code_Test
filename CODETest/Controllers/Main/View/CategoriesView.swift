@@ -10,7 +10,7 @@ import UIKit
 class CategoriesView: UIView {
 
     var collectionView: UICollectionView!
-//    ["Все", "Designers", "Analysts", "Managers", "iOS", "Android", "QA", "Бэк-офис", "Frontend", "HR", "PR", "Backend", "Техподдержка"
+    
      let categories: [Department] = [.all, .design, .analytics, .management, .ios, .android, .qa, .back_office, .frontend, .hr, .pr, .backend, .support]
     var currentCategory: Department
     

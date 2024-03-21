@@ -11,11 +11,6 @@ protocol SortingDelegate: AnyObject {
     func didSelectSorting(with option: SortOption)
 }
 
-enum SortOption: String {
-    case byAlphabet = "По алфавиту"
-    case byBirthday = "По дню рождения"
-}
-
 class SortViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!

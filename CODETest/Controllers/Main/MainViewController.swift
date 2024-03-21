@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
     }
     
     let model: EmployeesListModel = .init()
+   
     var sorting : SortOption = .byAlphabet
     var selectedCategory: Department = .all
     

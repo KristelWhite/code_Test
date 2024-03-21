@@ -7,16 +7,16 @@
 
 import Foundation
 
-enum Department: String, Codable {
+enum Department: String, Codable, Equatable {
     case android, ios, design, management, qa, back_office, frontend, hr, pr, backend, support, analytics, all
-    
+//    ["Все", "Designers", "Analysts", "Managers", "iOS", "Android", "QA", "Бэк-офис", "Frontend", "HR", "PR", "Backend", "Техподдержка"
     var tabName: String {
         switch self {
         case .all: return "Все"
         case .android: return "Android"
         case .ios: return "iOS"
-        case .design: return "Дизайн"
-        case .management: return "Менеджмент"
+        case .design: return "Designers"
+        case .management: return "Managers"
         case .qa: return "QA"
         case .back_office: return "Бэк-офис"
         case .frontend: return "Frontend"
@@ -24,12 +24,12 @@ enum Department: String, Codable {
         case .pr: return "PR"
         case .backend: return "Backend"
         case .support: return "Техподдержка"
-        case .analytics: return "Аналитика"
+        case .analytics: return "Analysts"
         }
     }
 }
 
-struct Employee: Codable {
+struct Employee: Codable, Hashable {
     let id: String
     let avatarUrl: String
     let firstName: String
