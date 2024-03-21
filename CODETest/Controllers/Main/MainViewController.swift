@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
    
     var sorting : SortOption = .byAlphabet
     var selectedCategory: Department = .all
+    var currentSearch: String? = nil
     
  
     let searchController = UISearchController(searchResultsController: nil)
@@ -109,25 +110,16 @@ class MainViewController: UIViewController {
     
     func configureModel() {
         model.didUpdateModel = { [weak self] in
-            
-            switch self?.sorting {
-            case .byAlphabet:
-                self?.model.employees = self?.model.employees.sorted { first, second in
-                    (first.firstName + first.lastName) < (second.firstName + second.lastName)
-                } ?? []
-            case .byBirthday:
-                self?.model.employees = self?.model.employees.sorted { first, second in
-                    first.birthday < second.birthday
-                } ?? []
-            case .none:
-                break
-            }
-            self?.model.filteredItems = self?.model.employees ?? []
-            
-            self?.tableView.reloadData()
+            self?.updateDataAndView()
         }
     }
     
+    func updateDataAndView() {
+        SortAndFilterLogic.updateIfNeeded(employees: model.employees, searchString: currentSearch, department: selectedCategory, sorting: sorting)
+        model.filteredItems = SortAndFilterLogic.finalFilteredEmployees
+        
+        tableView.reloadData()
+        }
     
     private func configureTableView() {
         setupConstraints(for: tableView)
@@ -176,12 +168,8 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedCategory = categoriesView.categories[indexPath.item]
-        filterByCategory()
+        updateDataAndView()
         categoriesView.collectionView(collectionView, didSelectItemAt: indexPath)
-    }
-    
-    func filterByCategory(){
-        // фильтрация по категории
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -271,38 +259,8 @@ extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate, UISe
     
     // MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text?.lowercased(), !searchText.isEmpty else {
-            model.filteredItems = model.employees
-            tableView.reloadData()
-            return
-        }
-        filterContentForSearchText(searchText)
+        currentSearch = searchController.searchBar.text
+        updateDataAndView()
     }
     
-    func filterContentForSearchText(_ searchText: String) {
-        model.filteredItems = model.employees.filter { person in
-            return person.firstName.lowercased().hasPrefix(searchText) ||
-            person.lastName.lowercased().hasPrefix(searchText) ||
-            person.userTag.lowercased().hasPrefix(searchText)
-        }
-        
-        tableView.reloadData()
-    }
 }
-
-
-//extension MainViewController: NavigationBarDelegate {
-//    func didChangeSearchText(_ searchText: String) {
-//
-//    }
-//
-//    func didSelectCategory(_ category: String) {
-//
-//    }
-//
-//
-//}
-
-
-
-//        ["Все", "Designers", "Analysts", "Managers", "iOS", "Android", "QA", "Бэк-офис", "Frontend", "HR", "PR", "Backend", "Техподдержка"]

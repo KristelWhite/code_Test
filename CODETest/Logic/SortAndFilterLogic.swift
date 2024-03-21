@@ -20,7 +20,7 @@ class SortAndFilterLogic {
     
     static var sortedEmployees: [Employee] = []
     static var filteredByDepartmentEmployees: [Employee] = []
-    static var finalFilteredEmployees: [Employee] = [] 
+    static var finalFilteredEmployees: [Employee] = []
     
     static func updateIfNeeded(employees: [Employee], searchString: String?, department: Department, sorting: SortOption) {
         let newHash = employees.hashValue
@@ -34,7 +34,7 @@ class SortAndFilterLogic {
     
     static func performFullSortingAndFiltering(employees: [Employee], searchString: String?, department: Department, sorting: SortOption) {
         sortedEmployees = sortEmployees(employees: employees, sorting: sorting)
-        filteredByDepartmentEmployees = filterByPosition(employees: sortedEmployees, department: department)
+        filteredByDepartmentEmployees = filterByDepartment(employees: sortedEmployees, department: department)
         finalFilteredEmployees = filterByName(employees: filteredByDepartmentEmployees, searchString: searchString)
     }
     
@@ -45,11 +45,16 @@ class SortAndFilterLogic {
         }
         if currentDepartment != department {
             currentDepartment = department
-            filteredByDepartmentEmployees = filterByPosition(employees: sortedEmployees, department: department)
+            filteredByDepartmentEmployees = filterByDepartment(employees: sortedEmployees, department: department)
+        } else {
+            filteredByDepartmentEmployees = sortedEmployees
         }
         if  currentSearchString != searchString {
             currentSearchString = searchString
             finalFilteredEmployees = filterByName(employees: filteredByDepartmentEmployees, searchString: searchString)
+        }
+        else {
+            finalFilteredEmployees = filteredByDepartmentEmployees
         }
     }
     
@@ -64,12 +69,15 @@ class SortAndFilterLogic {
         }
     }
     
-    private static func filterByPosition(employees: [Employee], department: Department) -> [Employee] {
+    private static func filterByDepartment(employees: [Employee], department: Department) -> [Employee] {
+        if department == .all {
+            return employees
+        }
         return employees.filter { $0.department == department }
     }
     
     private static func filterByName(employees: [Employee], searchString: String?) -> [Employee] {
-        guard let searchText = searchString, !searchText.isEmpty else {
+        guard let searchText = searchString?.lowercased(), !searchText.isEmpty else {
             return employees
         }
         return employees.filter {

@@ -13,7 +13,6 @@ class EmployeesListModel {
     
     let service : Networking = .init()
     var employees: [Employee] = []
-    var sortedItems : [Employee] = []
     var filteredItems: [Employee] = []
     
     func fetchData() {
