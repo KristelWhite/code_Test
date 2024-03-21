@@ -25,15 +25,17 @@ class MainViewController: UIViewController {
     
     let model: EmployeesListModel = .init()
     var sorting : SortOption = .byAlphabet
+    var selectedCategory: Department = .all
     
-    var customButtonBar: CustomButtonBar!
-    var customSearchController: CustomSearchController!
+ 
     let searchController = UISearchController(searchResultsController: nil)
+    var categoriesView: CategoriesView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupSearchBar()
+        setupCategoriesView()
         
         configureTableView()
         configureModel()
@@ -140,7 +142,58 @@ class MainViewController: UIViewController {
         NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topSpace), tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -Constant.bottomSpace), tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.horizontalSpace), tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.horizontalSpace)])
         // может настроить content Insets ?
     }
+    
+    private func setupCategoriesView() {
+        categoriesView = CategoriesView(frame: .zero ,with: selectedCategory)
+        categoriesView.collectionView.dataSource = self
+        categoriesView.collectionView.delegate = self
+        view.addSubview(categoriesView)
+        
+        categoriesView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            categoriesView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            categoriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            categoriesView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categoriesView.heightAnchor.constraint(equalToConstant: 36)
+        ])
+    }
+   
 }
+
+// MARK: - UICollectionViewDataSource
+extension MainViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categoriesView.collectionView(collectionView, numberOfItemsInSection: section)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return categoriesView.collectionView(collectionView, cellForItemAt: indexPath)
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCategory = categoriesView.categories[indexPath.item]
+        filterByCategory()
+        categoriesView.collectionView(collectionView, didSelectItemAt: indexPath)
+    }
+    
+    func filterByCategory(){
+        // фильтрация по категории
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        categoriesView.collectionView(collectionView, didDeselectItemAt: indexPath)
+    }
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        categoriesView.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
+    }
+}
+
 
 // MARK: - SortDelegate
 extension MainViewController: SortingDelegate {

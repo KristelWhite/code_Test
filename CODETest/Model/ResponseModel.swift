@@ -8,10 +8,11 @@
 import Foundation
 
 enum Department: String, Codable {
-    case android, ios, design, management, qa, back_office, frontend, hr, pr, backend, support, analytics
+    case android, ios, design, management, qa, back_office, frontend, hr, pr, backend, support, analytics, all
     
     var tabName: String {
         switch self {
+        case .all: return "Все"
         case .android: return "Android"
         case .ios: return "iOS"
         case .design: return "Дизайн"
