@@ -7,23 +7,40 @@
 
 import UIKit
 
+protocol CellDelegate: AnyObject {
+    func didTapButtonInCell()
+}
+
 class PhoneTableViewCell: UITableViewCell {
 
     @IBOutlet weak var phoneImageView: UIImageView!
-    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var phoneButton: UIButton!
     
+    weak var delegate: CellDelegate?
     override func awakeFromNib() {
         super.awakeFromNib()
         let image = UIImage(named: "phone")?.withTintColor(Constant.blackColor)
         self.phoneImageView.image = image
         
-        phoneLabel.font = .systemFont(ofSize: 16, weight: .medium)
-        phoneLabel.textColor = Constant.blackColor
-        phoneLabel.textAlignment = .left
+        phoneButton.setTitleColor(Constant.blackColor, for: .normal)
+        phoneButton.setTitleColor(Constant.blackColor, for: .highlighted)
+        phoneButton.setTitleColor(Constant.blackColor, for: .disabled)
+        phoneButton.setTitleColor(Constant.blackColor, for: .selected)
+        phoneButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        phoneButton.contentHorizontalAlignment = .left
+        
+    }
+    
+    @IBAction func tapOnPhone(_ sender: Any) {
+        delegate?.didTapButtonInCell()
+
     }
     
     func configure(with phone: String){
-        phoneLabel.text = phone
+        phoneButton.setTitle(phone, for: .normal)
+        phoneButton.setTitle(phone, for: .highlighted)
+        phoneButton.setTitle(phone, for: .disabled)
+        phoneButton.setTitle(phone, for: .selected)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

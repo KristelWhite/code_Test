@@ -7,21 +7,18 @@
 
 import UIKit
 
-// Custom UIView to display user profile
+
 class DetailHeaderView: UIView {
     
-    // UI Components
     private let profileImageView = UIImageView()
     private let nameLabel = UILabel()
     private let tagLabel = UILabel()
     private let jobTitleLabel = UILabel()
-    private let backButton = UIButton(type: .system)
     
-    // Horizontal stack view to hold the name and tag labels
+ 
     private let horizontalStackView = UIStackView()
     private let verticalStackView = UIStackView()
     
-    // Custom initializer with parameters to set up the view
     init(frame: CGRect, profileImage: UIImage, name: String, tag: String, jobTitle: String) {
         super.init(frame: frame)
         setupView()
@@ -33,8 +30,6 @@ class DetailHeaderView: UIView {
         setupView()
     }
 
-
-    
     private func setupView() {
         self.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 248/255, alpha: 1)
         
@@ -55,7 +50,6 @@ class DetailHeaderView: UIView {
         profileImageView.layer.cornerRadius = 52
         profileImageView.clipsToBounds = true
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        
 
         horizontalStackView.axis = .horizontal
         horizontalStackView.alignment = .center
@@ -70,19 +64,10 @@ class DetailHeaderView: UIView {
         verticalStackView.addArrangedSubview(horizontalStackView)
         verticalStackView.addArrangedSubview(jobTitleLabel)
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        
-
-        backButton.setImage(UIImage(systemName: "back.button"), for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        
 
         addSubview(profileImageView)
         addSubview(verticalStackView)
-        
-
+    
         setupConstraints()
     }
     
@@ -94,7 +79,6 @@ class DetailHeaderView: UIView {
     }
     
     private func setupConstraints() {
-        // Define constraints for subviews
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 72),
             profileImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -104,17 +88,7 @@ class DetailHeaderView: UIView {
             verticalStackView.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 24),
             verticalStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             verticalStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
-        
-            
-            
-//            backButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-//            backButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
         ])
-    }
-    
-    @objc private func backButtonTapped() {
-        // Handle back button tap
-        print("Back button tapped")
     }
 }
 

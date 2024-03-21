@@ -23,15 +23,16 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureHeader()
         configureTableView()
         configureBackButton()
     }
     
+    
     func configureBackButton(){
-        var image = UIImage(named: "back.button")?.withRenderingMode(.alwaysOriginal)
-        var backImage = image?.withTintColor(Constant.blackColor)
+        let image = UIImage(named: "back.button")?.withRenderingMode(.alwaysOriginal)
+        let backImage = image?.withTintColor(Constant.blackColor)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(backButtonPressed))
     }
     
@@ -43,7 +44,7 @@ class DetailViewController: UIViewController {
         headerView = DetailHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 280), profileImage: image, name: name, tag: tag, jobTitle: position)
         view.addSubview(headerView)
         setupConstraints(for: headerView)
-//        self.navigationItem.titleView = headerView
+        //        self.navigationItem.titleView = headerView
     }
     func setupConstraints(for headerView: DetailHeaderView) {
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +68,38 @@ class DetailViewController: UIViewController {
     }
 
 }
+
+extension DetailViewController: CellDelegate {
+    func didTapButtonInCell() {
+        showCallConfirmation()
+    }
+    
+    func showCallConfirmation() {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let callAction = UIAlertAction(title: "\(phone)", style: .default) { (action) in
+            self.makeCall(to: self.phone)
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+        callAction.setValue(Constant.blackColor, forKey: "titleTextColor")
+        cancelAction.setValue(Constant.blackColor, forKey: "titleTextColor")
+        
+        actionSheet.addAction(callAction)
+        actionSheet.addAction(cancelAction)
+        
+        present(actionSheet, animated: true)
+    }
+    
+    func makeCall(to phone: String) {
+        if let phoneURL = URL(string: "tel://\(phone)") {
+            if UIApplication.shared.canOpenURL(phoneURL) {
+                UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    
+}
+
 extension DetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         2
@@ -83,6 +116,7 @@ extension DetailViewController: UITableViewDataSource {
         case 1 :
             let cell = tableView.dequeueReusableCell(withIdentifier: "\(PhoneTableViewCell.self)", for: indexPath) as? PhoneTableViewCell
             guard let cell = cell else { break }
+            cell.delegate = self
             cell.configure(with: phone)
             return cell
         default:

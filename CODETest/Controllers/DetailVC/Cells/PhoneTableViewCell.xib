@@ -27,18 +27,22 @@
                                     <constraint firstAttribute="width" constant="20" id="yH2-jY-AQH"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JjR-So-s9J">
-                                <rect key="frame" x="36" y="18.666666666666668" width="42" height="21.000000000000004"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yyr-0K-3BX">
+                                <rect key="frame" x="36" y="20" width="75" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="lcg-3h-ogK"/>
+                                </constraints>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="tapOnPhone:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="4VR-5N-MCN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Yyr-0K-3BX" firstAttribute="centerY" secondItem="dIL-bc-KZw" secondAttribute="centerY" id="O7d-UF-2Sz"/>
                             <constraint firstItem="hn9-og-4W1" firstAttribute="leading" secondItem="dIL-bc-KZw" secondAttribute="leading" constant="2" id="Vsc-hU-czF"/>
-                            <constraint firstItem="JjR-So-s9J" firstAttribute="centerY" secondItem="dIL-bc-KZw" secondAttribute="centerY" constant="-1" id="jBL-DY-bZl"/>
-                            <constraint firstItem="JjR-So-s9J" firstAttribute="leading" secondItem="hn9-og-4W1" secondAttribute="trailing" constant="14" id="kr4-Nm-aVo"/>
+                            <constraint firstItem="Yyr-0K-3BX" firstAttribute="leading" secondItem="hn9-og-4W1" secondAttribute="trailing" constant="14" id="hjh-Jw-LNq"/>
                             <constraint firstItem="hn9-og-4W1" firstAttribute="centerY" secondItem="dIL-bc-KZw" secondAttribute="centerY" id="pW4-E3-1if"/>
                         </constraints>
                     </view>
@@ -52,8 +56,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="phoneButton" destination="Yyr-0K-3BX" id="iag-Ud-Eug"/>
                 <outlet property="phoneImageView" destination="hn9-og-4W1" id="7uc-xt-yti"/>
-                <outlet property="phoneLabel" destination="JjR-So-s9J" id="rDe-CK-1qB"/>
             </connections>
             <point key="canvasLocation" x="118.32061068702289" y="25.35211267605634"/>
         </tableViewCell>
