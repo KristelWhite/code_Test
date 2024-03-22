@@ -37,6 +37,7 @@
 		63D2DC7E2BAC2E22006574B7 /* PhoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2DC7C2BAC2E22006574B7 /* PhoneTableViewCell.swift */; };
 		63D2DC7F2BAC2E22006574B7 /* PhoneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D2DC7D2BAC2E22006574B7 /* PhoneTableViewCell.xib */; };
 		63D2DC812BAC862A006574B7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2DC802BAC862A006574B7 /* Constants.swift */; };
+		63D2DC832BAD72BB006574B7 /* HeaderOfYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2DC822BAD72BB006574B7 /* HeaderOfYear.swift */; };
 		976E5A8E2514D236281B8388 /* Pods_CODETest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B8B19B77ED36895AC6CBFB /* Pods_CODETest.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		63D2DC7C2BAC2E22006574B7 /* PhoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTableViewCell.swift; sourceTree = "<group>"; };
 		63D2DC7D2BAC2E22006574B7 /* PhoneTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneTableViewCell.xib; sourceTree = "<group>"; };
 		63D2DC802BAC862A006574B7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		63D2DC822BAD72BB006574B7 /* HeaderOfYear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderOfYear.swift; sourceTree = "<group>"; };
 		CEB944F00395885340DA19F5 /* Pods-CODETest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODETest.release.xcconfig"; path = "Target Support Files/Pods-CODETest/Pods-CODETest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,6 +211,7 @@
 				63D02ADC2BA0BFB90081BCC2 /* MainViewController.swift */,
 				63D02ADD2BA0BFB90081BCC2 /* MainViewController.xib */,
 				63D2DC3F2BA42C33006574B7 /* EmployeeTableCell */,
+				63D2DC822BAD72BB006574B7 /* HeaderOfYear.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				63D2DC7E2BAC2E22006574B7 /* PhoneTableViewCell.swift in Sources */,
 				63D02AC52BA085E50081BCC2 /* SceneDelegate.swift in Sources */,
 				63D02ADE2BA0BFB90081BCC2 /* MainViewController.swift in Sources */,
+				63D2DC832BAD72BB006574B7 /* HeaderOfYear.swift in Sources */,
 				63D2DC7A2BAC2E0D006574B7 /* InfoTableViewCell.swift in Sources */,
 				63D2DC732BAC0322006574B7 /* SortAndFilterLogic.swift in Sources */,
 				63D2DC6B2BA9EF5C006574B7 /* CategoriesView.swift in Sources */,

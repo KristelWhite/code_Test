@@ -117,10 +117,19 @@ class MainViewController: UIViewController {
     
     func updateDataAndView() {
         SortAndFilterLogic.updateIfNeeded(employees: model.employees, searchString: currentSearch, department: selectedCategory, sorting: sorting)
-        model.filteredItems = SortAndFilterLogic.finalFilteredEmployees
+        model.filteredItems = Array(repeating: [Employee](), count: 2)
+        let filteredEmployees = SortAndFilterLogic.finalFilteredEmployees
+        if sorting == .byBirthday {
+            let index = SortAndFilterLogic.findFirstIndexCurrentDate(inEmployeesList: filteredEmployees)
+            model.filteredItems[0].append(contentsOf: Array(filteredEmployees[index...]))
+            model.filteredItems[1].append(contentsOf: Array(filteredEmployees[0..<index]))
+        } else {
+            model.filteredItems[0].append(contentsOf: filteredEmployees)
+        }
         
         tableView.reloadData()
         }
+    
     
     private func configureTableView() {
         setupConstraints(for: tableView)
@@ -129,6 +138,9 @@ class MainViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
     }
     
     func setupConstraints( for tableView: UITableView) {
@@ -212,8 +224,13 @@ extension MainViewController: SortingDelegate {
 
 // MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        model.filteredItems.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = model.filteredItems.count
+        let count = model.filteredItems[section].count
         tableView.backgroundView = ((count == 0) ? makeEmptyStateView() : nil)
         return count
     }
@@ -240,7 +257,7 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(EmployeeTableViewCell.self)") as? EmployeeTableViewCell
         guard let cell = cell else { return UITableViewCell()}
-        let employee = model.filteredItems[indexPath.row]
+        let employee = model.filteredItems[indexPath.section][indexPath.row]
         cell.configure(with: employee)
         return cell
     }
@@ -253,7 +270,7 @@ extension MainViewController: UITableViewDataSource {
             vc.tag = cell.tagLabel.text ?? ""
             vc.image = cell.avatarImageView.image ?? UIImage(named: "goose") ?? UIImage()
         }
-        let employee = model.filteredItems[indexPath.row]
+        let employee = model.filteredItems[indexPath.section][indexPath.row]
         vc.bday = employee.fullDate()
         vc.age = employee.calculateAge()
         vc.phone = employee.formatedPhone()
@@ -267,6 +284,21 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let height = Constant.sizeOfCell + Constant.betweenLines
         return height
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if sorting == .byBirthday, section == 1 {
+            let headerView = HeaderOfYear(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableView.sectionHeaderHeight))
+            
+            return headerView
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if sorting == .byBirthday, section == 1 {
+            return 70
+        }
+        return 0
     }
 }
 

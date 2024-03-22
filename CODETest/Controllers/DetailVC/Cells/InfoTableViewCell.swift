@@ -23,7 +23,7 @@ class InfoTableViewCell: UITableViewCell {
         dateLabel.textAlignment = .left
         
         numberOfYearsLabel.font = .systemFont(ofSize: 16, weight: .medium)
-        numberOfYearsLabel.textColor = Constant.ligthGreyColor
+        numberOfYearsLabel.textColor = Constant.lightGreyColor
         numberOfYearsLabel.textAlignment = .right
     }
     

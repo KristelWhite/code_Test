@@ -43,7 +43,7 @@ class EmployeeTableViewCell: UITableViewCell {
         bdayLabel.textColor = Constants.bdayColor
         bdayLabel.textAlignment = .right
         //скрыли дату рождения
-        bdayLabel.isHidden = true
+//        bdayLabel.isHidden = true
         
         avatarImageView.image = UIImage(named: "goose")
         avatarImageView.contentMode = .scaleAspectFill

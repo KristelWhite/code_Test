@@ -38,7 +38,7 @@ class DetailHeaderView: UIView {
         nameLabel.textAlignment = .center
         
         tagLabel.font = .systemFont(ofSize: 14, weight: .regular)
-        tagLabel.textColor = Constant.ligthGreyColor
+        tagLabel.textColor = Constant.lightGreyColor
         tagLabel.textAlignment = .center
         
         jobTitleLabel.font = .systemFont(ofSize: 13, weight: .regular)

@@ -13,7 +13,7 @@ class EmployeesListModel {
     
     let service : Networking = .init()
     var employees: [Employee] = []
-    var filteredItems: [Employee] = []
+    var filteredItems: [[Employee]] = [[Employee]]()
     
     func fetchData() {
         service.loadData(isSuccess: true) { [weak self] result in
