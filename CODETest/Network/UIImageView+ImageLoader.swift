@@ -18,7 +18,7 @@ extension UIImageView {
                     self?.image = image
                 }
             } else {
-//                поставить заглушку
+                
             }
         }
     }

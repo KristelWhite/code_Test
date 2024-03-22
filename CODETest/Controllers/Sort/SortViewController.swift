@@ -12,13 +12,11 @@ protocol SortingDelegate: AnyObject {
 }
 
 class SortViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     var currentOption: SortOption
     weak var delegate: SortingDelegate?
-    
-    
     private let sortingOptions: [SortOption] = [.byAlphabet, .byBirthday]
     
     init(with option: SortOption, delegate: SortingDelegate?) {
@@ -26,15 +24,15 @@ class SortViewController: UIViewController {
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
-   
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       configureTableView()
+        
+        configureTableView()
     }
     
     private func configureTableView() {
@@ -51,6 +49,7 @@ class SortViewController: UIViewController {
     }
 }
 
+//MARK: - UITableViewDataSource
 extension SortViewController : UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         1
@@ -77,6 +76,7 @@ extension SortViewController : UITableViewDataSource{
     }
 }
 
+//MARK: - UITableViewDelegate
 extension SortViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
@@ -91,7 +91,7 @@ extension SortViewController: UITableViewDelegate {
         label.textColor = UIColor(red: 5/255, green: 5/255, blue: 16/255, alpha: 1)
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
-
+        
         view.addSubview(label)
         
         NSLayoutConstraint.activate([label.topAnchor.constraint(equalTo: view.topAnchor, constant: 4), label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16), label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8), label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)])

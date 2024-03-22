@@ -30,7 +30,7 @@ class DetailViewController: UIViewController {
     }
     
     
-    func configureBackButton(){
+    private func configureBackButton(){
         let image = UIImage(named: "back.button")?.withRenderingMode(.alwaysOriginal)
         let backImage = image?.withTintColor(Constant.blackColor)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(backButtonPressed))
@@ -40,18 +40,18 @@ class DetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func configureHeader(){
+    private func configureHeader(){
         headerView = DetailHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 280), profileImage: image, name: name, tag: tag, jobTitle: position)
         view.addSubview(headerView)
         setupConstraints(for: headerView)
-        //        self.navigationItem.titleView = headerView
     }
-    func setupConstraints(for headerView: DetailHeaderView) {
+    
+    private func setupConstraints(for headerView: DetailHeaderView) {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([headerView.topAnchor.constraint(equalTo: view.topAnchor), headerView.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 280), headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor), headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
     }
     
-    func configureTableView(){
+    private func configureTableView(){
         setupConstraints(for: tableView)
         tableView.register(UINib(nibName: "\(InfoTableViewCell.self)", bundle: nil), forCellReuseIdentifier: "\(InfoTableViewCell.self)")
         tableView.register(UINib(nibName: "\(PhoneTableViewCell.self)", bundle: nil), forCellReuseIdentifier: "\(PhoneTableViewCell.self)")
@@ -62,13 +62,14 @@ class DetailViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: CGFloat.leastNonzeroMagnitude))
     }
     
-    func setupConstraints( for tableView: UITableView) {
+    private func setupConstraints( for tableView: UITableView) {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 8),tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor), tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16), tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)])
     }
 
 }
 
+//MARK: - CellDelegate
 extension DetailViewController: CellDelegate {
     func didTapButtonInCell() {
         showCallConfirmation()
@@ -96,10 +97,9 @@ extension DetailViewController: CellDelegate {
             }
         }
     }
-    
-    
 }
 
+//MARK: - UITableViewDataSource
 extension DetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         2
@@ -125,10 +125,9 @@ extension DetailViewController: UITableViewDataSource {
         
         return UITableViewCell()
     }
-    
-    
 }
 
+//MARK: - UITableViewDelegate
 extension DetailViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         66

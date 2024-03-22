@@ -9,7 +9,7 @@ import Foundation
 
 enum Department: String, Codable, Equatable {
     case android, ios, design, management, qa, back_office, frontend, hr, pr, backend, support, analytics, all
-//    ["Все", "Designers", "Analysts", "Managers", "iOS", "Android", "QA", "Бэк-офис", "Frontend", "HR", "PR", "Backend", "Техподдержка"
+
     var tabName: String {
         switch self {
         case .all: return "Все"
@@ -41,6 +41,7 @@ struct Employee: Codable, Hashable {
     let phone: String
 }
 
+//MARK: - Date presentation
 extension Employee {
     func dataOnScreen() -> String {
         let formatter = DateFormatter()
@@ -115,7 +116,7 @@ struct ResponseBody: Codable {
     let items: [Employee]
 }
 
-
+//MARK: - decode Date from Data
 extension ResponseBody {
     static func decode(from jsonData: Data) throws -> ResponseBody {
         let decoder = JSONDecoder()

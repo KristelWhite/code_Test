@@ -17,6 +17,7 @@ class PhoneTableViewCell: UITableViewCell {
     @IBOutlet weak var phoneButton: UIButton!
     
     weak var delegate: CellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         let image = UIImage(named: "phone")?.withTintColor(Constant.blackColor)
@@ -28,12 +29,10 @@ class PhoneTableViewCell: UITableViewCell {
         phoneButton.setTitleColor(Constant.blackColor, for: .selected)
         phoneButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         phoneButton.contentHorizontalAlignment = .left
-        
     }
     
     @IBAction func tapOnPhone(_ sender: Any) {
         delegate?.didTapButtonInCell()
-
     }
     
     func configure(with phone: String){

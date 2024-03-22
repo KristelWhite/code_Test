@@ -10,6 +10,7 @@ import UIKit
 class CategoriesCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
+    
     var category: Department?
     
     override func awakeFromNib() {

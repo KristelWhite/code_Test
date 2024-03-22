@@ -16,34 +16,28 @@ class EmployeeTableViewCell: UITableViewCell {
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var bdayLabel: UILabel!
     
-    enum Constants {
+    enum ConstantsColor {
         static let nameColor = UIColor(red: 5/255, green: 5/255, blue: 16/255, alpha: 1)
         static let tagColor = UIColor(red: 151/255, green: 151/255, blue: 155/255, alpha: 1)
         static let positionColor = UIColor(red: 85/255, green: 85/255, blue: 92/255, alpha: 1)
         static let bdayColor = UIColor(red: 85/255, green: 85/255, blue: 92/255, alpha: 1)
     }
 
-
-
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        NSLayoutConstraint.activate([heightAnchor.constraint(equalToConstant: 80)])
         nameLabel.font = .systemFont(ofSize: 16, weight: .medium)
-        nameLabel.textColor = Constants.nameColor
+        nameLabel.textColor = ConstantsColor.nameColor
         
         tagLabel.font = .systemFont(ofSize: 14, weight: .medium)
-        tagLabel.textColor = Constants.tagColor
-
+        tagLabel.textColor = ConstantsColor.tagColor
         
         positionLabel.font = .systemFont(ofSize: 13, weight: .regular)
-        positionLabel.textColor = Constants.positionColor
+        positionLabel.textColor = ConstantsColor.positionColor
         
         bdayLabel.font = .systemFont(ofSize: 15, weight: .regular)
-        bdayLabel.textColor = Constants.bdayColor
+        bdayLabel.textColor = ConstantsColor.bdayColor
         bdayLabel.textAlignment = .right
-        //скрыли дату рождения
-//        bdayLabel.isHidden = true
         
         avatarImageView.image = UIImage(named: "goose")
         avatarImageView.contentMode = .scaleAspectFill
@@ -51,8 +45,6 @@ class EmployeeTableViewCell: UITableViewCell {
         avatarImageView.clipsToBounds = true
         
     }
-    
-
     
     func configure(with employee: Employee, sorting: SortOption) {
         nameLabel.text = "\(employee.firstName) \(employee.lastName)"

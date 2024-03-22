@@ -19,12 +19,6 @@ class MainViewController: UIViewController {
         static let sizeOfCell: CGFloat = 80
     }
     
-    let model: EmployeesListModel = .init()
-   
-    var sorting : SortOption = .byAlphabet
-    var selectedCategory: Department = .all
-    var currentSearch: String? = nil
-    
     let searchController = UISearchController(searchResultsController: nil)
     var categoriesView: CategoriesView!
     var separatorLine: UIView = {
@@ -32,6 +26,12 @@ class MainViewController: UIViewController {
         line.backgroundColor = Constant.lightGreyColor2
         return line
     }()
+    
+    let model: EmployeesListModel = .init()
+   
+    var sorting : SortOption = .byAlphabet
+    var selectedCategory: Department = .all
+    var currentSearch: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +45,8 @@ class MainViewController: UIViewController {
         model.fetchData()
     }
     
-    
-    func setupSeparator() {
+    // MARK: - separator setting
+    private func setupSeparator() {
         view.addSubview(separatorLine)
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         
@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
             separatorLine.topAnchor.constraint(equalTo: categoriesView.bottomAnchor) ])
     }
                                      
-    func setupRefreshControl() {
+    private func setupRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshPeopleList), for: .valueChanged)
     }
@@ -62,7 +62,8 @@ class MainViewController: UIViewController {
         model.fetchData()
     }
     
-    func setupSearchBar() {
+    //MARK: - search bar setting
+    private func setupSearchBar() {
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.delegate = self
         self.searchController.delegate = self
@@ -105,15 +106,15 @@ class MainViewController: UIViewController {
         self.navigationController?.present(vc, animated: true)
     }
     
-    
-    func configureModel() {
+    //MARK: - update data and logic
+    private func configureModel() {
         model.didUpdateModel = { [weak self] in
             self?.updateDataAndView()
             self?.tableView.refreshControl?.endRefreshing()
         }
     }
     
-    func updateDataAndView() {
+    private func updateDataAndView() {
         SortAndFilterLogic.updateIfNeeded(employees: model.employees, searchString: currentSearch, department: selectedCategory, sorting: sorting)
         model.filteredItems = Array(repeating: [Employee](), count: 2)
         let filteredEmployees = SortAndFilterLogic.finalFilteredEmployees
@@ -128,7 +129,7 @@ class MainViewController: UIViewController {
         tableView.reloadData()
         }
     
-    
+    //MARK: - table view setting
     private func configureTableView() {
         setupConstraints(for: tableView)
         
@@ -141,11 +142,12 @@ class MainViewController: UIViewController {
         }
     }
     
-    func setupConstraints( for tableView: UITableView) {
+    private func setupConstraints( for tableView: UITableView) {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: categoriesView.bottomAnchor,constant: ConstantSpace.topSpace), tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -ConstantSpace.bottomSpace), tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: ConstantSpace.horizontalSpace), tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -ConstantSpace.horizontalSpace)])
     }
     
+    //MARK: - category setting
     private func setupCategoriesView() {
         categoriesView = CategoriesView(frame: .zero ,with: selectedCategory)
         categoriesView.collectionView.dataSource = self
@@ -192,6 +194,7 @@ extension MainViewController: UICollectionViewDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         categoriesView.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
@@ -220,8 +223,6 @@ extension MainViewController: SortingDelegate {
         self.searchController.searchBar.setImage(newImage, for: .bookmark, state: .normal)
         
     }
-    
-    
 }
 
 // MARK: - UITableViewDataSource
@@ -237,7 +238,7 @@ extension MainViewController: UITableViewDataSource {
         return count
     }
     
-    func makeEmptyStateView() -> UIView {
+    private func makeEmptyStateView() -> UIView {
         let emptyStateView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
         
         let imageView = UIImageView(image: UIImage(named: "emptyStateImage"))
@@ -304,9 +305,8 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UISearchResultsUpdating, UISearchBarDelegate
 extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
-    
-    // MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController) {
         currentSearch = searchController.searchBar.text
         updateDataAndView()

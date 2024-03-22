@@ -10,7 +10,6 @@ import UIKit
 class SortTableViewCell: UITableViewCell {
     
     @IBOutlet weak var optionImageView: UIImageView!
-    
     @IBOutlet weak var titleLabel: UILabel!
     
     override func awakeFromNib() {
