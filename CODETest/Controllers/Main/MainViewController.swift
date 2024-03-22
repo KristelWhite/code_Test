@@ -33,21 +33,16 @@ class MainViewController: UIViewController {
         return line
     }()
     
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupSearchBar()
         setupCategoriesView()
         setupRefreshControl()
         setupSeparator()
-       
         
         configureTableView()
         configureModel()
         model.fetchData()
-        
     }
     
     
@@ -68,36 +63,30 @@ class MainViewController: UIViewController {
     }
     
     func setupSearchBar() {
-        // привести в норм вид или вынести
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.delegate = self
         self.searchController.delegate = self
+        
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.obscuresBackgroundDuringPresentation = false
-        self.searchController.searchBar.placeholder = "Введите имя, тег, почту..."
+        self.searchController.searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Введите имя, тег, почту...",attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .medium), .foregroundColor: Constant.lightGreyColor2])
         self.searchController.searchBar.searchBarStyle = .default
         self.navigationItem.titleView = searchController.searchBar
         self.definesPresentationContext = true
-        self.searchController.searchBar.searchTextField.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 248/255, alpha: 1)
+        self.searchController.searchBar.searchTextField.backgroundColor = Constant.lightGreyColor3
         self.searchController.searchBar.showsBookmarkButton = true
-        self.searchController.searchBar.setImage(UIImage(named: "filter"), for: .bookmark, state: .normal)
-        self.searchController.searchBar.setImage(UIImage(named: "clear"), for: .clear, state: .normal)
-        self.searchController.searchBar.setImage(UIImage(named: "search"), for: .search, state: .normal)
-        // mode для изменения цвета
-        self.searchController.searchBar.image(for: .search, state: .normal)?.withRenderingMode(.alwaysTemplate)
         
-        // Swift 5 и более поздние версии
-        //        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-        //            // Задаем радиус скругления
-        //            textField.layer.cornerRadius = 16.0
-        //            // Для применения изменений и избежания обрезания
-        //            textField.clipsToBounds = true
-        ////            textField.backgroundColor = UIColor.lightGray
-        //        }
+        var image = UIImage(named: "filter")?.withTintColor(Constant.lightGreyColor2)
+        self.searchController.searchBar.setImage(image, for: .bookmark, state: .normal)
+        image = UIImage(named: "clear")?.withTintColor(Constant.lightGreyColor2)
+        self.searchController.searchBar.setImage(image, for: .clear, state: .normal)
+        image = UIImage(named: "search")?.withTintColor(Constant.lightGreyColor2)
+        self.searchController.searchBar.setImage(image, for: .search, state: .normal)
+        self.searchController.searchBar.image(for: .search, state: .normal)?.withRenderingMode(.alwaysTemplate)
         
         self.searchController.searchBar.searchTextField.layer.cornerRadius = 16
         self.searchController.searchBar.searchTextField.clipsToBounds = true
-        self.searchController.searchBar.tintColor = UIColor(red: 101/255, green: 52/255, blue: 255/255, alpha: 1)
+        self.searchController.searchBar.tintColor = Constant.purpleColor
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
@@ -323,4 +312,13 @@ extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate, UISe
         updateDataAndView()
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        let image = UIImage(named: "search")?.withTintColor(Constant.blackColor)
+        self.searchController.searchBar.setImage(image, for: .search, state: .normal)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        let image = UIImage(named: "search")?.withTintColor(Constant.lightGreyColor2)
+        self.searchController.searchBar.setImage(image, for: .search, state: .normal)
+    }
 }
