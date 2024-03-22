@@ -11,9 +11,9 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
 
-    enum Constant {
+    enum ConstantSpace {
         static let horizontalSpace: CGFloat = 16
-        static let topSpace: CGFloat = 156
+        static let topSpace: CGFloat = 16
         static let bottomSpace: CGFloat = 34
         static let betweenLines: CGFloat = 4
         static let sizeOfCell: CGFloat = 80
@@ -27,6 +27,13 @@ class MainViewController: UIViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     var categoriesView: CategoriesView!
+    var separatorLine: UIView = {
+        var line = UIView()
+        line.backgroundColor = Constant.lightGreyColor2
+        return line
+    }()
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +41,24 @@ class MainViewController: UIViewController {
         setupSearchBar()
         setupCategoriesView()
         setupRefreshControl()
+        setupSeparator()
+       
         
         configureTableView()
         configureModel()
         model.fetchData()
         
     }
+    
+    
+    func setupSeparator() {
+        view.addSubview(separatorLine)
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([separatorLine.heightAnchor.constraint(equalToConstant: 0.33), separatorLine.leadingAnchor.constraint(equalTo: self.view.leadingAnchor), separatorLine.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            separatorLine.topAnchor.constraint(equalTo: categoriesView.bottomAnchor) ])
+    }
+                                     
     func setupRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshPeopleList), for: .valueChanged)
@@ -49,33 +68,23 @@ class MainViewController: UIViewController {
     }
     
     func setupSearchBar() {
-        
         // привести в норм вид или вынести
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.delegate = self
         self.searchController.delegate = self
-        
         self.searchController.hidesNavigationBarDuringPresentation = false
-        
         self.searchController.obscuresBackgroundDuringPresentation = false
-        
         self.searchController.searchBar.placeholder = "Введите имя, тег, почту..."
-    
         self.searchController.searchBar.searchBarStyle = .default
-        
         self.navigationItem.titleView = searchController.searchBar
-        
         self.definesPresentationContext = true
         self.searchController.searchBar.searchTextField.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 248/255, alpha: 1)
         self.searchController.searchBar.showsBookmarkButton = true
         self.searchController.searchBar.setImage(UIImage(named: "filter"), for: .bookmark, state: .normal)
         self.searchController.searchBar.setImage(UIImage(named: "clear"), for: .clear, state: .normal)
-        
-        
         self.searchController.searchBar.setImage(UIImage(named: "search"), for: .search, state: .normal)
         // mode для изменения цвета
         self.searchController.searchBar.image(for: .search, state: .normal)?.withRenderingMode(.alwaysTemplate)
-        
         
         // Swift 5 и более поздние версии
         //        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
@@ -145,8 +154,7 @@ class MainViewController: UIViewController {
     
     func setupConstraints( for tableView: UITableView) {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topSpace), tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -Constant.bottomSpace), tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.horizontalSpace), tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.horizontalSpace)])
-        // может настроить content Insets ?
+        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: categoriesView.bottomAnchor,constant: ConstantSpace.topSpace), tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -ConstantSpace.bottomSpace), tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: ConstantSpace.horizontalSpace), tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -ConstantSpace.horizontalSpace)])
     }
     
     private func setupCategoriesView() {
@@ -180,6 +188,7 @@ extension MainViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
         selectedCategory = categoriesView.categories[indexPath.item]
         updateDataAndView()
         categoriesView.collectionView(collectionView, didSelectItemAt: indexPath)
@@ -187,6 +196,10 @@ extension MainViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         categoriesView.collectionView(collectionView, didDeselectItemAt: indexPath)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        categoriesView.scrollViewDidScroll(scrollView)
     }
 }
 
@@ -258,7 +271,7 @@ extension MainViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(EmployeeTableViewCell.self)") as? EmployeeTableViewCell
         guard let cell = cell else { return UITableViewCell()}
         let employee = model.filteredItems[indexPath.section][indexPath.row]
-        cell.configure(with: employee)
+        cell.configure(with: employee, sorting: sorting)
         return cell
     }
     
@@ -282,7 +295,7 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height = Constant.sizeOfCell + Constant.betweenLines
+        let height = ConstantSpace.sizeOfCell + ConstantSpace.betweenLines
         return height
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

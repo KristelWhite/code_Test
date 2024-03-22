@@ -43,7 +43,6 @@ class HeaderOfYear: UIView {
         addSubview(lineLeft)
         addSubview(lineRight)
 
-        
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             label.centerXAnchor.constraint(equalTo: self.centerXAnchor),

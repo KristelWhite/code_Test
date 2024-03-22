@@ -54,14 +54,19 @@ class EmployeeTableViewCell: UITableViewCell {
     
 
     
-    func configure(with employee: Employee) {
+    func configure(with employee: Employee, sorting: SortOption) {
         nameLabel.text = "\(employee.firstName) \(employee.lastName)"
         tagLabel.text = employee.userTag.lowercased()
         positionLabel.text = employee.position
-        //показывать дату только в при фильтрации
         bdayLabel.text = employee.dataOnScreen()
         if let url = URL(string: employee.avatarUrl) {
             avatarImageView.loadImage(from: url)
+        }
+        switch sorting {
+        case .byAlphabet:
+            bdayLabel.isHidden = true
+        case .byBirthday:
+            bdayLabel.isHidden = false
         }
         
     }

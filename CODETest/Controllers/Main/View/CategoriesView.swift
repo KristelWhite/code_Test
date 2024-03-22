@@ -14,10 +14,18 @@ class CategoriesView: UIView {
      let categories: [Department] = [.all, .design, .analytics, .management, .ios, .android, .qa, .back_office, .frontend, .hr, .pr, .backend, .support]
     var currentCategory: Department
     
+    var selectedCaregoryLine: UIView = {
+        var line = UIView()
+        line.backgroundColor = Constant.purpleColor
+        return line
+    }()
+    var selectedCategoryIndexPath: IndexPath = IndexPath(item: 0, section: 0)
+    
     init(frame: CGRect, with сategory: Department) {
             self.currentCategory = сategory
             super.init(frame: frame)
             configureCollectionView()
+            setupSelectedCategoryLine()
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -47,6 +55,18 @@ class CategoriesView: UIView {
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
+    func setupSelectedCategoryLine(){
+        self.addSubview(selectedCaregoryLine)
+        selectedCaregoryLine.frame = CGRect(x: 0, y: 36, width: 50, height: 2)
+    }
+    func moveSelectedLine(to indexPath: IndexPath) {
+        guard let attributes = collectionView.layoutAttributesForItem(at: indexPath) else { return }
+        let convertAttributes = collectionView.convert(attributes.frame, to: collectionView.superview)
+        UIView.animate(withDuration: 0.2) {
+            self.selectedCaregoryLine.frame.origin.x = convertAttributes.minX
+            self.selectedCaregoryLine.frame.size.width = convertAttributes.width
+        }
+    }
 }
 
 extension CategoriesView: UICollectionViewDataSource {
@@ -66,6 +86,9 @@ extension CategoriesView: UICollectionViewDataSource {
 
 extension CategoriesView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCategoryIndexPath = indexPath
+        moveSelectedLine(to: indexPath)
+        
         currentCategory = categories[indexPath.row]
         if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCollectionViewCell {
             cell.configure(with: currentCategory, isSelected: true)
@@ -75,6 +98,11 @@ extension CategoriesView: UICollectionViewDelegate {
         if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCollectionViewCell {
             cell.configure(with: categories[indexPath.item], isSelected: false)
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        moveSelectedLine(to: selectedCategoryIndexPath)
+
     }
 }
 extension CategoriesView: UICollectionViewDelegateFlowLayout {

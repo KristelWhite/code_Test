@@ -15,15 +15,15 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.textAlignment = .center
-        titleLabel.textColor = UIColor(red: 151/255, green: 151/255, blue: 155/255, alpha: 1)
+        titleLabel.textColor = Constant.lightGreyColor
         titleLabel.font = .systemFont(ofSize: 15, weight: .medium)
     }
     
     func configure(with category: Department, isSelected: Bool) {
         self.category = category
         titleLabel.text = category.tabName
-//            contentView.backgroundColor = isSelected ? .blue : .clear
-        titleLabel.font = isSelected ? .boldSystemFont(ofSize: 15) : .systemFont(ofSize: 15, weight: .medium)
+        titleLabel.font = isSelected ? .systemFont(ofSize: 15, weight: .semibold) : .systemFont(ofSize: 15, weight: .medium)
+        titleLabel.textColor = isSelected ? Constant.blackColor : Constant.lightGreyColor
         }
     
     

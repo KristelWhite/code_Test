@@ -211,7 +211,6 @@
 				63D02ADC2BA0BFB90081BCC2 /* MainViewController.swift */,
 				63D02ADD2BA0BFB90081BCC2 /* MainViewController.xib */,
 				63D2DC3F2BA42C33006574B7 /* EmployeeTableCell */,
-				63D2DC822BAD72BB006574B7 /* HeaderOfYear.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -220,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				63D2DC702BA9EFDF006574B7 /* Cell */,
+				63D2DC822BAD72BB006574B7 /* HeaderOfYear.swift */,
 				63D2DC6A2BA9EF5C006574B7 /* CategoriesView.swift */,
 			);
 			path = View;
